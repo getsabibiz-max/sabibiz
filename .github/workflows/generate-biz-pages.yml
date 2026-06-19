@@ -1,4 +1,4 @@
-name: Generate business preview pages
+name: Generate Business Preview Pages
 
 on:
   schedule:
