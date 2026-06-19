@@ -1,0 +1,36 @@
+name: Generate business preview pages
+
+on:
+  schedule:
+    # Runs every 6 hours so newly-approved businesses get a share-preview
+    # page automatically, with no manual steps.
+    - cron: '0 */6 * * *'
+  workflow_dispatch: {}  # lets you trigger it manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Generate pages
+        run: python3 generate_biz_pages.py
+
+      - name: Commit changes if any
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add biz/
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Auto-update business preview pages"
+            git push
+          fi
