@@ -2105,7 +2105,22 @@ document.getElementById('sb-gate-email').addEventListener('keydown',e=>{if(e.key
 function openLite(){
   sbRequireEmail(()=>window.open('https://lite.sabibiz.com.ng/','_blank'),'lite');
 }
-function openToolkit(){
+function openToolkit() {
+  sbRequireEmail(() => {
+
+    // Google Analytics event (if GA4 is available)
+    if (typeof gtag === "function") {
+      gtag("event", "download_business_tools", {
+        event_category: "Downloads",
+        event_label: "SabiBiz Free Business Tools v1.0"
+      });
+    }
+
+    // Download the ZIP file
+    window.location.href = "SabiBiz Free Business Tools v1.0.zip";
+
+  }, "toolkit");
+}
   sbRequireEmail(()=>{
     const el=document.getElementById('kit-unlocked');
     if(el){
