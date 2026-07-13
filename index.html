@@ -2108,7 +2108,7 @@ function openLite(){
 function openToolkit() {
   sbRequireEmail(() => {
 
-    // Google Analytics event (if GA4 is available)
+    // Google Analytics event
     if (typeof gtag === "function") {
       gtag("event", "download_business_tools", {
         event_category: "Downloads",
@@ -2116,19 +2116,28 @@ function openToolkit() {
       });
     }
 
+    // Show success message
+    showToast("Your free business tools are downloading...");
+
     // Download the ZIP file
-    window.location.href = "SabiBiz Free Business Tools v1.0.zip";
+    const link = document.createElement("a");
+    link.href = "SabiBiz Free Business Tools v1.0.zip";
+    link.download = "";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Show unlocked section if it exists
+    const el = document.getElementById("kit-unlocked");
+    if (el) {
+      el.style.display = "block";
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }
 
   }, "toolkit");
-}
-  sbRequireEmail(()=>{
-    const el=document.getElementById('kit-unlocked');
-    if(el){
-      el.style.display='block';
-      el.scrollIntoView({behavior:'smooth',block:'center'});
-    }
-    showToast('You\'re in! Your free tools are ready below 🎉');
-  },'toolkit');
 }
 function showPage(id){
   if(id==='health'&&!sbToolUnlocked(id)){sbRequireEmail(()=>showPage(id),id);return;}
