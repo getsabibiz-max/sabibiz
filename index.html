@@ -2061,7 +2061,7 @@ footer{background:var(--dk);color:rgba(255,255,255,.48);padding:48px 0 26px;}
 // Email itself is remembered after the first entry so it can be pre-filled,
 // but each tool still needs its own "continue" the first time it's opened.
 const SB_GATE_ENDPOINT='https://formspree.io/f/xrejvrpg';
-const SB_TOOL_LABELS={calculator:'Pricing Calculator',health:'Business Health Check',ai:'Ask Sabi',lite:'SabiBiz Lite',toolkit:'toolkit: 'SabiBiz Free Business Tools''};
+const SB_TOOL_LABELS = {   calculator: 'Pricing Calculator',   health: 'Business Health Check',   ai: 'Ask Sabi',   lite: 'SabiBiz Lite',   toolkit: 'SabiBiz Free Business Tools' };
 let sbGatePendingCb=null;
 let sbGatePendingTool=null;
 function sbToolUnlocked(tool){return !!localStorage.getItem('sb_gate_'+tool);}
