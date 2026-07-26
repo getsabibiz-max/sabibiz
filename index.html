@@ -2092,7 +2092,6 @@ const sbClient=window.supabase.createClient(
     console.error('Download tracking error:',err);
   }
 }
-const SB_TOOL_LABELS={calculator:'Pricing Calculator',health:'Business Health Check',ai:'Ask Sabi',lite:'SabiBiz Lite',toolkit:'Business Money Toolkit'};
 let sbGatePendingCb=null;
 let sbGatePendingTool=null;
 function sbToolUnlocked(tool){return !!localStorage.getItem('sb_gate_'+tool);}
