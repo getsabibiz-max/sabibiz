@@ -2067,6 +2067,31 @@ const sbClient=window.supabase.createClient(
  SUPABASE_URL,
  SUPABASE_KEY
 );
+  const SB_TOOL_LABELS={
+ calculator:'Pricing Calculator',
+ health:'Business Health Check',
+ ai:'Ask Sabi',
+ lite:'SabiBiz Lite',
+ toolkit:'Business Money Toolkit'
+};
+  async function sbMarkDownloaded(email,tool){
+  try{
+    const {error}=await sbClient
+      .from('leads')
+      .update({
+        downloaded:true
+      })
+      .eq('email',email)
+      .eq('tool',SB_TOOL_LABELS[tool]||tool);
+
+    if(error){
+      console.error('Download update failed:',error);
+    }
+
+  }catch(err){
+    console.error('Download tracking error:',err);
+  }
+}
 const SB_TOOL_LABELS={calculator:'Pricing Calculator',health:'Business Health Check',ai:'Ask Sabi',lite:'SabiBiz Lite',toolkit:'Business Money Toolkit'};
 let sbGatePendingCb=null;
 let sbGatePendingTool=null;
@@ -2115,7 +2140,10 @@ async function sbGateSubmit(){
 }
 document.getElementById('sb-gate-email').addEventListener('keydown',e=>{if(e.key==='Enter')sbGateSubmit();});
 function openLite(){
-  sbRequireEmail(()=>window.open('https://lite.sabibiz.com.ng/','_blank'),'lite');
+  sbRequireEmail(()=>{
+    sbMarkDownloaded(localStorage.getItem('sb_email'),'lite');
+    window.open('https://lite.sabibiz.com.ng/','_blank');
+  },'lite');
 }
 function openToolkit() {
   sbRequireEmail(() => {
@@ -2130,6 +2158,7 @@ function openToolkit() {
 
     // Show success message
     showToast("Your free business tools are downloading...");
+    sbMarkDownloaded(localStorage.getItem('sb_email'),'toolkit');
 
     // Download the ZIP file
     const link = document.createElement("a");
