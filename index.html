@@ -2123,12 +2123,14 @@ async function sbGateSubmit(){
   if(tool)localStorage.setItem('sb_gate_'+tool,'1');
   try{
     await sbClient.from('leads').insert({
-      email:email,
-      source:'sabibiz-site-tool-gate',
-      tool:SB_TOOL_LABELS[tool]||tool||'Unknown',
-      lead_stage:'new',
-      downloaded:false
-    });
+  email:email,
+  source:'sabibiz-site-tool-gate',
+  tool:SB_TOOL_LABELS[tool]||tool||'Unknown',
+  lead_stage:'new',
+  downloaded:false
+});
+
+await new Promise(resolve => setTimeout(resolve, 500));
   }catch(err){
     console.error('Supabase lead insert failed:',err);
   }finally{
