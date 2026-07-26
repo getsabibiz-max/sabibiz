@@ -2161,7 +2161,9 @@ function openToolkit() {
 
     // Show success message
     showToast("Your free business tools are downloading...");
-    sbMarkDownloaded(localStorage.getItem('sb_email'),'toolkit');
+    setTimeout(()=>{
+  sbMarkDownloaded(localStorage.getItem('sb_email'),'toolkit');
+},1500);
 
     // Download the ZIP file
     const link = document.createElement("a");
