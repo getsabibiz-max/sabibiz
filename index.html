@@ -2074,19 +2074,20 @@ const sbClient=window.supabase.createClient(
  lite:'SabiBiz Lite',
  toolkit:'Business Money Toolkit'
 };
-  async function sbMarkDownloaded(email,tool){
+async function sbMarkDownloaded(email,tool){
   try{
-    const {error}=await sbClient
+    const toolName = SB_TOOL_LABELS[tool] || tool;
+
+    const {data,error}=await sbClient
       .from('leads')
       .update({
         downloaded:true
       })
       .eq('email',email)
-      .eq('tool',SB_TOOL_LABELS[tool]||tool);
+      .eq('tool',toolName)
+      .select();
 
-    if(error){
-      console.error('Download update failed:',error);
-    }
+    console.log('Downloaded update result:', data, error);
 
   }catch(err){
     console.error('Download tracking error:',err);
