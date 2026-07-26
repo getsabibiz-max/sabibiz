@@ -2060,7 +2060,7 @@ footer{background:var(--dk);color:rgba(255,255,255,.48);padding:48px 0 26px;}
 // ===== EMAIL GATE — asks once PER TOOL (Calculator, Health Check, Ask Sabi, Lite) =====
 // Email itself is remembered after the first entry so it can be pre-filled,
 // but each tool still needs its own "continue" the first time it's opened.
-const SB_GATE_ENDPOINT='https://formspree.io/f/xrejvrpg';
+const SUPABASE_URL='https://jvqgiqanlmndqwrtfdpl.supabase.co'; const SUPABASE_KEY='YOUR_PUBLISHABLE_KEY';  const supabase=window.supabase.createClient(   SUPABASE_URL,   SUPABASE_KEY );
 const SB_TOOL_LABELS = {   calculator: 'Pricing Calculator',   health: 'Business Health Check',   ai: 'Ask Sabi',   lite: 'SabiBiz Lite',   toolkit: 'SabiBiz Free Business Tools' };
 let sbGatePendingCb=null;
 let sbGatePendingTool=null;
@@ -3724,5 +3724,5 @@ function injectQ(q){document.getElementById('chat-input').value=q;tcSend();}
   }
 })();
 </script>
-</body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></body>
 </html>
