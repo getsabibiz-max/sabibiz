@@ -2076,21 +2076,22 @@ const sbClient=window.supabase.createClient(
 };
 async function sbMarkDownloaded(email,tool){
   try{
-    const toolName = SB_TOOL_LABELS[tool] || tool;
-
     const {data,error}=await sbClient
       .from('leads')
       .update({
         downloaded:true
       })
-      .eq('email',email)
-      .eq('tool',toolName)
-      .select();
+      .eq('email',email);
 
-    console.log('Downloaded update result:', data, error);
+    console.log("UPDATE TEST:", {
+      email,
+      tool,
+      data,
+      error
+    });
 
   }catch(err){
-    console.error('Download tracking error:',err);
+    console.error("DOWNLOAD UPDATE ERROR:",err);
   }
 }
 let sbGatePendingCb=null;
