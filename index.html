@@ -2063,7 +2063,7 @@ footer{background:var(--dk);color:rgba(255,255,255,.48);padding:48px 0 26px;}
 // but each tool still needs its own "continue" the first time it's opened.
 const SUPABASE_URL='https://jvqgiqanlmndqwrtfdpl.supabase.co';
 const SUPABASE_KEY='sb_publishable_GGh2rUO-kIJEBvfKP6feXg_s8T5vRzL';
-const supabase=window.supabase.createClient(
+const sbClient=window.supabase.createClient(
  SUPABASE_URL,
  SUPABASE_KEY
 );
@@ -2097,7 +2097,7 @@ async function sbGateSubmit(){
   localStorage.setItem('sb_email',email);
   if(tool)localStorage.setItem('sb_gate_'+tool,'1');
   try{
-    await supabase.from('leads').insert({
+    await sbClient.from('leads').insert({
       email:email,
       source:'sabibiz-site-tool-gate',
       tool:SB_TOOL_LABELS[tool]||tool||'Unknown',
