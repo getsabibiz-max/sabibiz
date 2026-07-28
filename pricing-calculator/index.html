@@ -1,3 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SabiBiz Pricing Calculator — Price Your Products Correctly</title>
+
+<meta name="description" content="Free pricing calculator for Nigerian small businesses. Calculate your selling price and profit margin instantly.">
+
+<style>
+/* LIVE TOOLS */
+.live-tool{background:var(--wh);border:1.5px solid var(--br);border-radius:15px;padding:34px 38px;margin-bottom:16px;}
+.live-tool h3{font-family:'Sora',sans-serif;font-size:1.15rem;font-weight:800;margin-bottom:4px;}
+.live-tool .lt-sub{font-size:.88rem;color:var(--md);margin-bottom:22px;}
+.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.calc-res{background:var(--lt);border-radius:11px;padding:18px;}
+.cr{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--br);font-size:.82rem;}
+.cr:last-child{border-bottom:none;}
+.cr-lbl{color:var(--md);}
+.cr-val{font-family:'Sora',sans-serif;font-weight:700;}
+.cr-val.pos{color:var(--g);}
+@media(max-width:580px){.calc-row{grid-template-columns:1fr;}.live-tool{padding:20px 16px;}}
+.calc-lite-nudge{display:none;background:var(--op);border:1.5px solid rgba(232,72,0,.25);border-radius:10px;padding:12px 13px;margin-top:10px;font-size:.78rem;color:var(--md);line-height:1.5;}
+.calc-lite-nudge strong{color:var(--o);}
+.calc-lite-nudge-btn{display:inline-block;margin-top:7px;background:none;border:none;color:var(--o);font-family:'Sora',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;padding:0;text-decoration:underline;}
+</style>
+
+</head>
+
+<body>
+
+<section class="tools-bg">
+
+<div class="wrap">
+
   <!-- LIVE PRICING CALCULATOR -->
       <div class="live-tool">
         <span class="tag tag-g" style="display:inline-block;margin-bottom:9px;">✅ Free Forever</span>
@@ -35,3 +71,57 @@
           </div>
         </div>
       </div>
+</div>
+
+</section>
+
+
+<script>
+
+function calcUpdateGated(){
+  calcUpdate();
+}
+function calcUpdate(){
+  const name=document.getElementById('calc-name').value||'Product';
+  const cost=parseFloat(document.getElementById('calc-cost').value)||0;
+  const transport=parseFloat(document.getElementById('calc-transport').value)||0;
+  const fees=parseFloat(document.getElementById('calc-fees').value)||0;
+  const margin=parseFloat(document.getElementById('calc-margin').value)||30;
+  const qty=Math.max(1,parseFloat(document.getElementById('calc-qty').value)||1);
+  const totalCost=cost+transport+fees;
+  const perUnit=totalCost/qty;
+  // True gross margin: selling price = cost / (1 - margin%)
+  // e.g. 30% margin → sell at cost/0.70, so profit IS 30% of the selling price
+  const recPrice=margin>=100?perUnit*100:perUnit/(1-margin/100);
+  const profit=recPrice-perUnit;
+  // Break-even: how many units to sell at recommended price to recover total cost
+  const beUnits=recPrice>0?Math.ceil(totalCost/recPrice):0;
+  document.getElementById('calc-res-name').textContent=name+' — Pricing Breakdown';
+  document.getElementById('cr-cost').textContent='₦'+fmt(perUnit);
+  document.getElementById('cr-min').textContent='₦'+fmt(perUnit)+' (cost price)';
+  document.getElementById('cr-rec').textContent='₦'+fmt(recPrice);
+  document.getElementById('cr-profit').textContent='₦'+fmt(profit)+' per unit';
+  document.getElementById('cr-be').textContent=beUnits+' unit'+(beUnits===1?'':'s')+' to recover all costs';
+  // Service discovery trigger — once the user has entered a real cost, nudge
+  // them toward SabiBiz Lite to track sales/profit at this price going forward.
+  const liteNudge=document.getElementById('calc-lite-nudge');
+  if(liteNudge)liteNudge.style.display=cost>0?'block':'none';
+}
+function calcShare(){
+  const name=document.getElementById('calc-name').value||'Product';
+  const rec=document.getElementById('cr-rec').textContent;
+  const profit=document.getElementById('cr-profit').textContent;
+  const cost=document.getElementById('cr-cost').textContent;
+  const msg='*'+name+' — Pricing from SabiBiz*\n\nCost per unit: '+cost+'\nRecommended selling price: '+rec+'\nProfit: '+profit+'\n\nCalculated with SabiBiz Pricing Calculator';
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+  function fmt(n){
+  return Math.round(n).toLocaleString('en-US');
+}
+  
+calcUpdate();
+
+</script>
+
+</body>
+</html>
