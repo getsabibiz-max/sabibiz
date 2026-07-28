@@ -1,0 +1,37 @@
+  <!-- LIVE PRICING CALCULATOR -->
+      <div class="live-tool">
+        <span class="tag tag-g" style="display:inline-block;margin-bottom:9px;">✅ Free Forever</span>
+        <h3>Pricing Calculator</h3>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+          <div style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:var(--g);">Free</div>
+          <div style="font-size:.8rem;color:var(--mt);line-height:1.4;">No payment needed.<br>Use it right now, always free.</div>
+        </div>
+        <p class="lt-sub">Enter your costs below. See exactly what to charge. Never sell at a loss again.</p>
+        <div class="calc-row">
+          <div>
+            <div class="inp-row"><label class="inp-lbl">Product Name</label><input class="inp" id="calc-name" placeholder="e.g. Hair Wig (1 piece)" onfocus="calcGateFocus(this)" oninput="calcUpdateGated()"></div>
+            <div class="inp-row"><label class="inp-lbl">Purchase / Cost Price (₦)</label><input class="inp" id="calc-cost" type="number" placeholder="0" min="0" onfocus="calcGateFocus(this)" oninput="calcUpdateGated()"></div>
+            <div class="inp-row"><label class="inp-lbl">Transport Cost (₦)</label><input class="inp" id="calc-transport" type="number" placeholder="0" min="0" onfocus="calcGateFocus(this)" oninput="calcUpdateGated()"></div>
+            <div class="inp-row"><label class="inp-lbl">Market / Other Fees (₦)</label><input class="inp" id="calc-fees" type="number" placeholder="0" min="0" onfocus="calcGateFocus(this)" oninput="calcUpdateGated()"></div>
+            <div class="inp-row"><label class="inp-lbl">Target Profit Margin (%)</label><input class="inp" id="calc-margin" type="number" placeholder="30" min="0" onfocus="calcGateFocus(this)" oninput="calcUpdateGated()"></div>
+            <div class="inp-row"><label class="inp-lbl">Quantity in Batch</label><input class="inp" id="calc-qty" type="number" placeholder="1" min="1" onfocus="calcGateFocus(this)" oninput="calcUpdateGated()"></div>
+          </div>
+          <div>
+            <div class="calc-res" id="calc-res">
+              <div style="font-family:'Sora',sans-serif;font-size:.72rem;font-weight:700;color:var(--mt);margin-bottom:11px;" id="calc-res-name">Pricing Breakdown</div>
+              <div class="cr"><span class="cr-lbl">Total Cost (per unit)</span><span class="cr-val" id="cr-cost">₦0</span></div>
+              <div class="cr"><span class="cr-lbl">Minimum Selling Price</span><span class="cr-val" id="cr-min">₦0</span></div>
+              <div class="cr"><span class="cr-lbl">Recommended Selling Price</span><span class="cr-val pos" id="cr-rec" style="font-size:1.05rem;">₦0</span></div>
+              <div class="cr"><span class="cr-lbl">Profit Per Unit</span><span class="cr-val pos" id="cr-profit">₦0</span></div>
+              <div class="cr"><span class="cr-lbl">Break-Even Quantity</span><span class="cr-val" id="cr-be">—</span></div>
+              <div style="margin-top:12px;">
+                <button class="btn btn-g btn-full" onclick="calcShare()" style="font-size:.78rem;padding:10px;">📲 Share Pricing on WhatsApp</button>
+              </div>
+              <div class="calc-lite-nudge" id="calc-lite-nudge">
+                <strong>✓ Price calculated.</strong> Now track every sale at this price daily — free, with reminders and streaks to keep you consistent.
+                <br><button class="calc-lite-nudge-btn" onclick="document.getElementById('lite-tool-section').scrollIntoView({behavior:'smooth',block:'start'})">Try SabiBiz Lite free ↓</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
